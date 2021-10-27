@@ -32,13 +32,12 @@ class QuotesSpider(scrapy.Spider):
 
     def get_list_page(self, response):
         for i in range(1):
-            url = response.url.format(str(i + 1))
-            yield scrapy.Request(url, self.get_list)
+            # url = response.url.format(i + 1)
+            yield scrapy.Request(response.url + str(i+1), self.get_list)
 
 
     def get_list(self, response):
         try:
-            # //ul[@class="list-film"]/li/div[@class="inner"]/a/@href'
             divs = response.xpath('//a[@class="film-cover"]/@href').extract()
             print(divs)
             # for link in divs:
